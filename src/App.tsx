@@ -3,12 +3,6 @@ import PokemonCard from "./Components/PokemonCard";
 
 function App() {
   const [pokemonIndex, setPokemonIndex] = useState(0);
-  const handleClickPlus = () => {
-    setPokemonIndex(pokemonIndex + 1);
-  };
-  const handleClickMinus = () => {
-    setPokemonIndex(pokemonIndex - 1);
-  };
 
   const pokemonList = [
     {
@@ -35,21 +29,24 @@ function App() {
       name: "mew",
     },
   ];
+  const handlePokemonClick = (index) => {
+    setPokemonIndex(index);
+  };
 
   return (
     <div>
+      <nav>
+        <ul>
+          {pokemonList.map((pokemon, index) => (
+            <li key={pokemon.name}>
+              <button onClick={() => handlePokemonClick(index)}>
+                {pokemon.name}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </nav>
       <PokemonCard pokemon={pokemonList[pokemonIndex]} />
-      {pokemonIndex > 0 && (
-        <button type="button" onClick={handleClickMinus}>
-          Précédent
-        </button>
-      )}
-
-      {pokemonIndex < pokemonList.length - 1 && (
-        <button type="button" onClick={handleClickPlus}>
-          Suivant
-        </button>
-      )}
     </div>
   );
 }
